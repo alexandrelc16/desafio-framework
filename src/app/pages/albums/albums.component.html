@@ -1,0 +1,56 @@
+<div class="albums-container">
+  <h3 *ngIf="!selectedAlbum">Álbuns</h3>
+
+  <div
+    fxLayout
+    fxLayoutAlign="space-between center"
+    *ngIf="selectedAlbum">
+
+    <h3>Fotos</h3>
+
+    <button
+      mat-stroked-button
+      (click)="backToAlbums()">
+      Voltar
+    </button>
+  </div>
+
+  <div
+    fxLayout="row wrap"
+    fxLayoutGap="16px"
+    *ngIf="!selectedAlbum">
+
+    <mat-card
+      fxFlex="0 1 calc(25% - 16px)"
+      fxFlex.lt-lg="0 1 calc(50% - 16px)"
+      fxFlex.lt-sm="100%"
+      class="card-album"
+      *ngFor="let completeAlbum of completeAlbums">
+
+      <mat-card-content>
+        <p class="p-user-name">{{completeAlbum.user.name}}</p>
+        <p>{{completeAlbum.album.title}}</p>
+      </mat-card-content>
+      <mat-card-footer >
+        <button
+          mat-button
+          (click)="showPhotos(completeAlbum.album)">
+          VER FOTOS
+        </button>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+  <div *ngIf="selectedAlbum">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="center"
+      fxLayoutGap="4px"
+      class="photos-container">
+
+      <div *ngFor="let photo of selectedAlbum.photos">
+        <img src="{{photo.thumbnailUrl}}">
+      </div>
+    </div>
+  </div>
+</div>
